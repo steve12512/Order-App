@@ -1,5 +1,6 @@
 com\ecommerce\app\Pc_Tower.class
 com\ecommerce\app\Workstation.class
+com\ecommerce\app\EShopGUI.class
 com\ecommerce\app\App.class
 com\ecommerce\app\Pc_Screen.class
 com\ecommerce\app\Personal_Computer.class
