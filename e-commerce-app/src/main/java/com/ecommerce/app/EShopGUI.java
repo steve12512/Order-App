@@ -6,6 +6,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -31,6 +32,10 @@ public class EShopGUI {
     private JPanel buttonGridPanel;
     private String previousSelection;
 
+    private final ImageIcon pcTowerIcon = new ImageIcon(getClass().getResource("/photographs/computer.jpg"));
+    private final ImageIcon pcScreenIcon = new ImageIcon(getClass().getResource("/photographs/screen.jpg"));
+    private final ImageIcon personalComputerIcon = new ImageIcon(getClass().getResource("/photographs/desktop.jpg"));
+    private final ImageIcon workstationIcon = new ImageIcon(getClass().getResource("/photographs/workstation.jpg"));
     public void createAndShowGUI() {
         frame = new JFrame("E-Shop Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
