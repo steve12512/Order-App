@@ -133,98 +133,114 @@ public class EShopGUI {
 
     // Method for all parameters including JComboBox
     private void showForm(String prompt, String label1, String label2,
-                        JTextField field1, JTextField field2, JTextField field3, JTextField field4,
-                        JComboBox<String> comboBox) {
-        clearPanel();
+                      JTextField field1, JTextField field2, JTextField field3, JTextField field4,
+                      JComboBox<String> comboBox) {
+    clearPanel();
 
-        formPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+    formPanel = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.insets = new Insets(5, 5, 5, 5);
+    gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        // Add header panel with exit button
-        JPanel headerPanel = new JPanel(new BorderLayout());
-        JLabel headerLabel = new JLabel(prompt);
-        headerLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        headerPanel.add(headerLabel, BorderLayout.CENTER);
+    // Add header panel with exit button
+    JPanel headerPanel = new JPanel(new BorderLayout());
+    JLabel headerLabel = new JLabel(prompt);
+    headerLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    headerPanel.add(headerLabel, BorderLayout.CENTER);
 
-        JButton exitButton = new JButton("Exit");
-        exitButton.addActionListener(e -> System.exit(0));
-        headerPanel.add(exitButton, BorderLayout.EAST);
+    JButton exitButton = new JButton("Exit");
+    exitButton.addActionListener(e -> System.exit(0));
+    headerPanel.add(exitButton, BorderLayout.EAST);
 
-        gbc.gridx = 0; gbc.gridy = 0;
-        gbc.gridwidth = 2;
-        formPanel.add(headerPanel, gbc);
-        gbc.gridwidth = 1;
+    gbc.gridx = 0;
+    gbc.gridy = 0;
+    gbc.gridwidth = 2;
+    formPanel.add(headerPanel, gbc);
+    gbc.gridwidth = 1;
 
-        int gridY = 1;
+    int gridY = 1;
 
-        if (label1 != null && field1 != null) {
-            JLabel label1Component = new JLabel(label1);
-            label1Component.setFont(new Font("Arial", Font.BOLD, 14));
-            gbc.gridx = 0; gbc.gridy = gridY;
-            formPanel.add(label1Component, gbc);
-            gbc.gridx = 1; gbc.gridy = gridY;
-            formPanel.add(field1, gbc);
-            gridY++;
-        }
-
-        if (label2 != null && field2 != null) {
-            JLabel label2Component = new JLabel(label2);
-            label2Component.setFont(new Font("Arial", Font.BOLD, 14));
-            gbc.gridx = 0; gbc.gridy = gridY;
-            formPanel.add(label2Component, gbc);
-            gbc.gridx = 1; gbc.gridy = gridY;
-            formPanel.add(field2, gbc);
-            gridY++;
-        }
-
-        if (field3 != null) {
-            JLabel screenSizeLabel = new JLabel("Screen Size (inches):");
-            screenSizeLabel.setFont(new Font("Arial", Font.BOLD, 14));
-            gbc.gridx = 0; gbc.gridy = gridY;
-            formPanel.add(screenSizeLabel, gbc);
-            gbc.gridx = 1; gbc.gridy = gridY;
-            formPanel.add(field3, gbc);
-            gridY++;
-        }
-
-        if (field4 != null) {
-            JLabel hddLabel = new JLabel("HDD Size (GB):");
-            hddLabel.setFont(new Font("Arial", Font.BOLD, 14));
-            gbc.gridx = 0; gbc.gridy = gridY;
-            formPanel.add(hddLabel, gbc);
-            gbc.gridx = 1; gbc.gridy = gridY;
-            formPanel.add(field4, gbc);
-            gridY++;
-        }
-
-        if (comboBox != null) {
-            JLabel osLabel = new JLabel("Operating System:");
-            osLabel.setFont(new Font("Arial", Font.BOLD, 14));
-            gbc.gridx = 0; gbc.gridy = gridY;
-            formPanel.add(osLabel, gbc);
-            gbc.gridx = 1; gbc.gridy = gridY;
-            formPanel.add(comboBox, gbc);
-            gridY++;
-        }
-
-        JButton submitButton = new JButton("Submit");
-        gbc.gridx = 0; gbc.gridy = gridY;
-        formPanel.add(submitButton, gbc);
-
-        goBackButton = new JButton("Go Back");
-        gbc.gridx = 1; gbc.gridy = gridY;
-        formPanel.add(goBackButton, gbc);
-
-        frame.add(formPanel, BorderLayout.CENTER);
-
-        submitButton.addActionListener(e -> handleSubmit(field1, field2, field3, field4, comboBox));
-        goBackButton.addActionListener(e -> showProductSelection());
-
-        frame.revalidate();
-        frame.repaint();
+    if (label1 != null && field1 != null) {
+        JLabel label1Component = new JLabel(label1);
+        label1Component.setFont(new Font("Arial", Font.BOLD, 14));
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        formPanel.add(label1Component, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = gridY;
+        formPanel.add(field1, gbc);
+        gridY++;
     }
+
+    if (label2 != null && field2 != null) {
+        JLabel label2Component = new JLabel(label2);
+        label2Component.setFont(new Font("Arial", Font.BOLD, 14));
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        formPanel.add(label2Component, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = gridY;
+        formPanel.add(field2, gbc);
+        gridY++;
+    }
+
+    if (field3 != null) {
+        JLabel screenSizeLabel = new JLabel("Screen Size (inches):");
+        screenSizeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        formPanel.add(screenSizeLabel, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = gridY;
+        formPanel.add(field3, gbc);
+        gridY++;
+    }
+
+    if (field4 != null) {
+        JLabel hddLabel = new JLabel("HDD Size (GB):");
+        hddLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        formPanel.add(hddLabel, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = gridY;
+        formPanel.add(field4, gbc);
+        gridY++;
+    }
+
+    if (comboBox != null) {
+        JLabel osLabel = new JLabel("Operating System:");
+        osLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        formPanel.add(osLabel, gbc);
+        gbc.gridx = 1;
+        gbc.gridy = gridY;
+        formPanel.add(comboBox, gbc);
+        gridY++;
+    }
+
+    // Place "Go Back" button on the left
+    goBackButton = new JButton("Go Back");
+    gbc.gridx = 0;
+    gbc.gridy = gridY;
+    formPanel.add(goBackButton, gbc);
+
+    // Place "Submit" button on the right
+    JButton submitButton = new JButton("Submit");
+    gbc.gridx = 1;
+    gbc.gridy = gridY;
+    formPanel.add(submitButton, gbc);
+
+    frame.add(formPanel, BorderLayout.CENTER);
+
+    submitButton.addActionListener(e -> handleSubmit(field1, field2, field3, field4, comboBox));
+    goBackButton.addActionListener(e -> showProductSelection());
+
+    frame.revalidate();
+    frame.repaint();
+}
+
 
     // Overloaded method for cases where JComboBox and some fields might be null
     private void showForm(String prompt, String label1, String label2,
