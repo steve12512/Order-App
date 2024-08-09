@@ -130,22 +130,27 @@ public class EShopGUI {
         return button;
     }
     
-
-    // Method for all parameters including JComboBox
     private void showForm(String prompt, String label1, String label2,
                       JTextField field1, JTextField field2, JTextField field3, JTextField field4,
                       JComboBox<String> comboBox) {
     clearPanel();
 
+    // Create BackgroundPanel with the same background image as the main panel
+    BackgroundPanel formBackgroundPanel = new BackgroundPanel(background, new BorderLayout());
+    
+    // Use GridBagLayout for the form content
     formPanel = new JPanel(new GridBagLayout());
+    formPanel.setOpaque(false); // Ensure the formPanel is transparent
     GridBagConstraints gbc = new GridBagConstraints();
     gbc.insets = new Insets(5, 5, 5, 5);
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
     // Add header panel with exit button
     JPanel headerPanel = new JPanel(new BorderLayout());
+    headerPanel.setOpaque(false); // Ensure headerPanel is transparent
     JLabel headerLabel = new JLabel(prompt);
     headerLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    headerLabel.setForeground(Color.WHITE); // Ensure text is visible on background
     headerPanel.add(headerLabel, BorderLayout.CENTER);
 
     JButton exitButton = new JButton("Exit");
@@ -163,6 +168,7 @@ public class EShopGUI {
     if (label1 != null && field1 != null) {
         JLabel label1Component = new JLabel(label1);
         label1Component.setFont(new Font("Arial", Font.BOLD, 14));
+        label1Component.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(label1Component, gbc);
@@ -175,6 +181,7 @@ public class EShopGUI {
     if (label2 != null && field2 != null) {
         JLabel label2Component = new JLabel(label2);
         label2Component.setFont(new Font("Arial", Font.BOLD, 14));
+        label2Component.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(label2Component, gbc);
@@ -187,6 +194,7 @@ public class EShopGUI {
     if (field3 != null) {
         JLabel screenSizeLabel = new JLabel("Screen Size (inches):");
         screenSizeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        screenSizeLabel.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(screenSizeLabel, gbc);
@@ -199,6 +207,7 @@ public class EShopGUI {
     if (field4 != null) {
         JLabel hddLabel = new JLabel("HDD Size (GB):");
         hddLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        hddLabel.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(hddLabel, gbc);
@@ -211,6 +220,7 @@ public class EShopGUI {
     if (comboBox != null) {
         JLabel osLabel = new JLabel("Operating System:");
         osLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        osLabel.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(osLabel, gbc);
@@ -232,7 +242,11 @@ public class EShopGUI {
     gbc.gridy = gridY;
     formPanel.add(submitButton, gbc);
 
-    frame.add(formPanel, BorderLayout.CENTER);
+    // Add the formPanel to the BackgroundPanel
+    formBackgroundPanel.add(formPanel, BorderLayout.CENTER);
+
+    // Add BackgroundPanel to frame
+    frame.add(formBackgroundPanel, BorderLayout.CENTER);
 
     submitButton.addActionListener(e -> handleSubmit(field1, field2, field3, field4, comboBox));
     goBackButton.addActionListener(e -> showProductSelection());
@@ -240,6 +254,22 @@ public class EShopGUI {
     frame.revalidate();
     frame.repaint();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
 
     // Overloaded method for cases where JComboBox and some fields might be null
