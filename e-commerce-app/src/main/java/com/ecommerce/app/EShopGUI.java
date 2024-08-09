@@ -1,6 +1,7 @@
 package com.ecommerce.app;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
@@ -8,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -71,6 +73,13 @@ public class EShopGUI {
         personalComputerButton.setPreferredSize(buttonSize);
         workstationButton.setPreferredSize(buttonSize);
 
+        //change button colors
+        pcTowerButton.setForeground(Color.WHITE);
+        pcScreenButton.setForeground(Color.WHITE);
+        personalComputerButton.setForeground(Color.WHITE);
+        workstationButton.setForeground(Color.WHITE);
+
+
         //resize images so that they fit nicely with their corresponding buttons and then add the images to their buttons
         pcTowerButton.setIcon(resizeIcon(pcTowerIcon, buttonSize));
         pcScreenButton.setIcon(resizeIcon(pcScreenIcon, buttonSize));
@@ -78,16 +87,16 @@ public class EShopGUI {
         workstationButton.setIcon(resizeIcon(workstationIcon, buttonSize));
 
 
-        // Set text and icon alignment
+        //set positions
         pcTowerButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        pcTowerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         pcScreenButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        pcScreenButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         personalComputerButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        personalComputerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
         workstationButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        workstationButton.setVerticalTextPosition(SwingConstants.BOTTOM);
 
+        pcTowerButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Black border with 2-pixel width
+        pcScreenButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        personalComputerButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        workstationButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
 
 
 
