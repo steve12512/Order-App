@@ -32,7 +32,7 @@ public class EShopGUI {
     private JComboBox<String> osComboBox;
     private JTextArea orderSummary;
     private JButton goBackButton;
-    private JPanel buttonPanel;
+    private BackgroundPanel buttonPanel;
     private JPanel formPanel;
     private JPanel buttonGridPanel;
     private String previousSelection;
@@ -41,7 +41,7 @@ public class EShopGUI {
     private final ImageIcon pcScreenIcon = new ImageIcon(getClass().getResource("/photographs/screen.jpg"));
     private final ImageIcon personalComputerIcon = new ImageIcon(getClass().getResource("/photographs/desktop.jpg"));
     private final ImageIcon workstationIcon = new ImageIcon(getClass().getResource("/photographs/workstation.jpg"));
-
+    private final ImageIcon background = new ImageIcon(getClass().getResource("/photographs/background.jpg"));
 
 
     public void createAndShowGUI() {
@@ -50,96 +50,78 @@ public class EShopGUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setLayout(new BorderLayout());
-
-        buttonGridPanel = new JPanel(new GridBagLayout());
-        buttonPanel = new JPanel(new BorderLayout());
-
+    
+        // BackgroundPanel with BorderLayout
+        buttonPanel = new BackgroundPanel(background, new BorderLayout());
+    
+        // Header with label and exit button
         JLabel chooseProductLabel = new JLabel("Please choose the product that you desire");
-        buttonPanel.add(chooseProductLabel, BorderLayout.NORTH);
-        buttonPanel.add(buttonGridPanel, BorderLayout.CENTER);
-
-        
-        //set default button dimension
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> System.exit(0));
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.add(chooseProductLabel, BorderLayout.CENTER);
+        headerPanel.add(exitButton, BorderLayout.EAST);
+    
+        // Add the headerPanel to the top of buttonPanel
+        buttonPanel.add(headerPanel, BorderLayout.NORTH);
+    
+        // Create buttons with icons and custom sizes
         Dimension buttonSize = new Dimension(300, 200);
-
-        //create the buttons
-        JButton pcTowerButton = new JButton("PC Tower");
-        JButton pcScreenButton = new JButton("PC Screen");
-        JButton personalComputerButton = new JButton("Personal Computer");
-        JButton workstationButton = new JButton("Workstation");
-
-        //specify their size dimensions
-        pcTowerButton.setPreferredSize(buttonSize);
-        pcScreenButton.setPreferredSize(buttonSize);
-        personalComputerButton.setPreferredSize(buttonSize);
-        workstationButton.setPreferredSize(buttonSize);
-
-        //change button colors
-        pcTowerButton.setForeground(Color.WHITE);
-        pcScreenButton.setForeground(Color.WHITE);
-        personalComputerButton.setForeground(Color.WHITE);
-        workstationButton.setForeground(Color.WHITE);
-
-
-        //resize images so that they fit nicely with their corresponding buttons and then add the images to their buttons
-        pcTowerButton.setIcon(resizeIcon(pcTowerIcon, buttonSize));
-        pcScreenButton.setIcon(resizeIcon(pcScreenIcon, buttonSize));
-        personalComputerButton.setIcon(resizeIcon(personalComputerIcon, buttonSize));
-        workstationButton.setIcon(resizeIcon(workstationIcon, buttonSize));
-
-
-        //set positions
-        pcTowerButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        pcScreenButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        personalComputerButton.setHorizontalTextPosition(SwingConstants.CENTER);
-        workstationButton.setHorizontalTextPosition(SwingConstants.CENTER);
-
-        //add button frames
-        pcTowerButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Add border
-        pcScreenButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Add border
-        personalComputerButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Add border
-        workstationButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Add border
-
-
+        JButton pcTowerButton = createButton("PC Tower", pcTowerIcon, buttonSize);
+        JButton pcScreenButton = createButton("PC Screen", pcScreenIcon, buttonSize);
+        JButton personalComputerButton = createButton("Personal Computer", personalComputerIcon, buttonSize);
+        JButton workstationButton = createButton("Workstation", workstationIcon, buttonSize);
+    
+        // Create a grid panel for buttons
+        JPanel gridPanel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
-
+    
         gbc.gridx = 0; gbc.gridy = 0;
-        buttonGridPanel.add(pcTowerButton, gbc);
-
+        gridPanel.add(pcTowerButton, gbc);
+    
         gbc.gridx = 1; gbc.gridy = 0;
-        buttonGridPanel.add(pcScreenButton, gbc);
-
+        gridPanel.add(pcScreenButton, gbc);
+    
         gbc.gridx = 0; gbc.gridy = 1;
-        buttonGridPanel.add(personalComputerButton, gbc);
-
+        gridPanel.add(personalComputerButton, gbc);
+    
         gbc.gridx = 1; gbc.gridy = 1;
-        buttonGridPanel.add(workstationButton, gbc);
-
+        gridPanel.add(workstationButton, gbc);
+    
+        // Add the grid panel to the center of buttonPanel
+        buttonPanel.add(gridPanel, BorderLayout.CENTER);
+    
+        // Create a text area for order summary and add to buttonPanel
         orderSummary = new JTextArea(5, 30);
         orderSummary.setEditable(false);
         buttonPanel.add(new JScrollPane(orderSummary), BorderLayout.SOUTH);
-
+    
+        // Add buttonPanel to frame
         frame.add(buttonPanel, BorderLayout.CENTER);
-
+    
+        // Action listeners for buttons
         pcTowerButton.addActionListener(e -> showPCTowerForm());
         pcScreenButton.addActionListener(e -> showPCScreenForm());
         personalComputerButton.addActionListener(e -> showPersonalComputerForm());
         workstationButton.addActionListener(e -> showWorkstationForm());
-
-
-
-    JButton exitButton = new JButton("Exit");
-    exitButton.addActionListener(e -> System.exit(0));
-    JPanel headerPanel = new JPanel(new BorderLayout());
-    headerPanel.add(chooseProductLabel, BorderLayout.CENTER);
-    headerPanel.add(exitButton, BorderLayout.EAST);
-    buttonPanel.add(headerPanel, BorderLayout.NORTH);
-
-    frame.pack();
-    frame.setVisible(true);
+    
+        frame.pack();
+        frame.setVisible(true);
     }
+    
+    private JButton createButton(String text, ImageIcon icon, Dimension size) {
+        //a simple method to create a jbutton object, along with an image, and modify its size, dimensions and color etc
+        JButton button = new JButton(text);
+        button.setPreferredSize(size);
+        button.setForeground(Color.WHITE);
+        button.setIcon(resizeIcon(icon, size));
+        button.setHorizontalTextPosition(SwingConstants.CENTER);
+        button.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+        return button;
+    }
+    
 
     // Method for all parameters including JComboBox
 private void showForm(String prompt, String label1, String label2,

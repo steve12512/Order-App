@@ -3,6 +3,7 @@ package com.ecommerce.app;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.LayoutManager;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -10,7 +11,11 @@ import javax.swing.JPanel;
 public class BackgroundPanel extends JPanel {
     private Image backgroundImage;
 
-    public BackgroundPanel(ImageIcon imageIcon) {
+    public BackgroundPanel(ImageIcon imageIcon, LayoutManager layout) {
+
+        //call the jpanel mother class constructor
+        super(layout);
+
         this.backgroundImage = imageIcon.getImage();
         // Set preferred size if necessary, to make sure it fits the image or desired dimensions
         setPreferredSize(new Dimension(backgroundImage.getWidth(this), backgroundImage.getHeight(this)));
