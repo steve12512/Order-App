@@ -56,9 +56,11 @@ public class EShopGUI {
     
         // Header with label and exit button
         JLabel chooseProductLabel = new JLabel("Please choose the product that you desire");
+        chooseProductLabel.setForeground(Color.WHITE); // Ensuring text is visible on the background
         JButton exitButton = new JButton("Exit");
         exitButton.addActionListener(e -> System.exit(0));
         JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setOpaque(false); // Ensure headerPanel is transparent
         headerPanel.add(chooseProductLabel, BorderLayout.CENTER);
         headerPanel.add(exitButton, BorderLayout.EAST);
     
@@ -74,6 +76,7 @@ public class EShopGUI {
     
         // Create a grid panel for buttons
         JPanel gridPanel = new JPanel(new GridBagLayout());
+        gridPanel.setOpaque(false); // Ensure gridPanel is transparent
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
@@ -124,248 +127,248 @@ public class EShopGUI {
     
 
     // Method for all parameters including JComboBox
-private void showForm(String prompt, String label1, String label2,
-                      JTextField field1, JTextField field2, JTextField field3, JTextField field4,
-                      JComboBox<String> comboBox) {
-    clearPanel();
-
-    formPanel = new JPanel(new GridBagLayout());
-    GridBagConstraints gbc = new GridBagConstraints();
-    gbc.insets = new Insets(5, 5, 5, 5);
-    gbc.fill = GridBagConstraints.HORIZONTAL;
-
-    // Add header panel with exit button
-    JPanel headerPanel = new JPanel(new BorderLayout());
-    JLabel headerLabel = new JLabel(prompt);
-    headerLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    headerPanel.add(headerLabel, BorderLayout.CENTER);
-
-    JButton exitButton = new JButton("Exit");
-    exitButton.addActionListener(e -> System.exit(0));
-    headerPanel.add(exitButton, BorderLayout.EAST);
-
-    gbc.gridx = 0; gbc.gridy = 0;
-    gbc.gridwidth = 2;
-    formPanel.add(headerPanel, gbc);
-    gbc.gridwidth = 1;
-
-    int gridY = 1;
-
-    if (label1 != null && field1 != null) {
-        JLabel label1Component = new JLabel(label1);
-        label1Component.setFont(new Font("Arial", Font.BOLD, 14));
-        gbc.gridx = 0; gbc.gridy = gridY;
-        formPanel.add(label1Component, gbc);
-        gbc.gridx = 1; gbc.gridy = gridY;
-        formPanel.add(field1, gbc);
-        gridY++;
-    }
-
-    if (label2 != null && field2 != null) {
-        JLabel label2Component = new JLabel(label2);
-        label2Component.setFont(new Font("Arial", Font.BOLD, 14));
-        gbc.gridx = 0; gbc.gridy = gridY;
-        formPanel.add(label2Component, gbc);
-        gbc.gridx = 1; gbc.gridy = gridY;
-        formPanel.add(field2, gbc);
-        gridY++;
-    }
-
-    if (field3 != null) {
-        JLabel screenSizeLabel = new JLabel("Screen Size (inches):");
-        screenSizeLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        gbc.gridx = 0; gbc.gridy = gridY;
-        formPanel.add(screenSizeLabel, gbc);
-        gbc.gridx = 1; gbc.gridy = gridY;
-        formPanel.add(field3, gbc);
-        gridY++;
-    }
-
-    if (field4 != null) {
-        JLabel hddLabel = new JLabel("HDD Size (GB):");
-        hddLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        gbc.gridx = 0; gbc.gridy = gridY;
-        formPanel.add(hddLabel, gbc);
-        gbc.gridx = 1; gbc.gridy = gridY;
-        formPanel.add(field4, gbc);
-        gridY++;
-    }
-
-    if (comboBox != null) {
-        JLabel osLabel = new JLabel("Operating System:");
-        osLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        gbc.gridx = 0; gbc.gridy = gridY;
-        formPanel.add(osLabel, gbc);
-        gbc.gridx = 1; gbc.gridy = gridY;
-        formPanel.add(comboBox, gbc);
-        gridY++;
-    }
-
-    JButton submitButton = new JButton("Submit");
-    gbc.gridx = 0; gbc.gridy = gridY;
-    formPanel.add(submitButton, gbc);
-
-    goBackButton = new JButton("Go Back");
-    gbc.gridx = 1; gbc.gridy = gridY;
-    formPanel.add(goBackButton, gbc);
-
-    frame.add(formPanel, BorderLayout.CENTER);
-
-    submitButton.addActionListener(e -> handleSubmit(field1, field2, field3, field4, comboBox));
-    goBackButton.addActionListener(e -> showProductSelection());
-
-    frame.revalidate();
-    frame.repaint();
-}
-
-// Overloaded method for cases where JComboBox and some fields might be null
-private void showForm(String prompt, String label1, String label2,
-                      JTextField field1, JTextField field2, JTextField field3, JTextField field4) {
-    showForm(prompt, label1, label2, field1, field2, field3, field4, null);
-}
-
-
-
-
-
-
-private void showPCTowerForm() {
-    previousSelection = "PC Tower";
-    showForm("Please specify the attributes of the desired product",
-             "Memory Size (GB):", "CPU Frequency (GHz):",
-             new JTextField(10), new JTextField(10), null, null);
-}
-
-private void showPCScreenForm() {
-    previousSelection = "PC Screen";
-    showForm("Please specify the attributes of the desired product",
-             "Screen Size (inches):", null,
-             new JTextField(10), null, null, null);
-}
-
-private void showPersonalComputerForm() {
-    previousSelection = "Personal Computer";
-    showForm("Please specify the attributes of the desired product",
-             "Memory Size (GB):", "CPU Frequency (GHz):",
-             new JTextField(10), new JTextField(10),
-             new JTextField(10), new JTextField(10));
-}
-
-private void showWorkstationForm() {
-    previousSelection = "Workstation";
-    showForm("Please specify the attributes of the desired product",
-             "Memory Size (GB):", "CPU Frequency (GHz):",
-             new JTextField(10), new JTextField(10),
-             new JTextField(10), new JTextField(10),
-             new JComboBox<>(new String[]{"Windows", "Linux"}));
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-    
-
-
-    private void handleSubmit(JTextField field1, JTextField field2, JTextField field3, JTextField field4, JComboBox<String> comboBox) {
-        try {
-            double memorySize = field1 != null ? Double.parseDouble(field1.getText()) : 0;
-            double cpuFreq = field2 != null ? Double.parseDouble(field2.getText()) : 0;
-            double screenSize = field3 != null ? Double.parseDouble(field3.getText()) : 0;
-            int hddSize = field4 != null ? Integer.parseInt(field4.getText()) : 0;
-            String os = comboBox != null ? (String) comboBox.getSelectedItem() : null;
-    
-            String result;
-            String objectName;
-    
-            switch (previousSelection) {
-                case "PC Tower":
-                    Pc_Tower pcTower = new Pc_Tower(memorySize, cpuFreq);
-                    result = pcTower.toString();
-                    objectName = "PC Tower";
-                    break;
-                case "PC Screen":
-                    Pc_Screen pcScreen = new Pc_Screen(screenSize);
-                    result = pcScreen.toString();
-                    objectName = "PC Screen";
-                    break;
-                case "Personal Computer":
-                    Pc_Tower pcTowerPersonal = new Pc_Tower(memorySize, cpuFreq);
-                    Pc_Screen pcScreenPersonal = new Pc_Screen(screenSize);
-                    Personal_Computer pc = new Personal_Computer(pcTowerPersonal, pcScreenPersonal, hddSize);
-                    result = pc.toString();
-                    objectName = "Personal Computer";
-                    break;
-                case "Workstation":
-                    Pc_Tower pcTowerWorkstation = new Pc_Tower(memorySize, cpuFreq);
-                    Pc_Screen pcScreenWorkstation = new Pc_Screen(screenSize);
-                    Personal_Computer pcWorkstation = new Personal_Computer(pcTowerWorkstation, pcScreenWorkstation, hddSize);
-                    Workstation workstation = new Workstation(pcWorkstation, os);
-                    result = workstation.toString();
-                    objectName = "Workstation";
-                    break;
-                default:
-                    throw new IllegalStateException("Unexpected value: " + previousSelection);
-            }
-    
-            showConfirmationDialog(objectName, result);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(frame, "Please enter valid numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-    
-
-    private void showProductSelection() {
+    private void showForm(String prompt, String label1, String label2,
+                        JTextField field1, JTextField field2, JTextField field3, JTextField field4,
+                        JComboBox<String> comboBox) {
         clearPanel();
-        frame.add(buttonPanel, BorderLayout.CENTER);
+
+        formPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(5, 5, 5, 5);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // Add header panel with exit button
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        JLabel headerLabel = new JLabel(prompt);
+        headerLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        headerPanel.add(headerLabel, BorderLayout.CENTER);
+
+        JButton exitButton = new JButton("Exit");
+        exitButton.addActionListener(e -> System.exit(0));
+        headerPanel.add(exitButton, BorderLayout.EAST);
+
+        gbc.gridx = 0; gbc.gridy = 0;
+        gbc.gridwidth = 2;
+        formPanel.add(headerPanel, gbc);
+        gbc.gridwidth = 1;
+
+        int gridY = 1;
+
+        if (label1 != null && field1 != null) {
+            JLabel label1Component = new JLabel(label1);
+            label1Component.setFont(new Font("Arial", Font.BOLD, 14));
+            gbc.gridx = 0; gbc.gridy = gridY;
+            formPanel.add(label1Component, gbc);
+            gbc.gridx = 1; gbc.gridy = gridY;
+            formPanel.add(field1, gbc);
+            gridY++;
+        }
+
+        if (label2 != null && field2 != null) {
+            JLabel label2Component = new JLabel(label2);
+            label2Component.setFont(new Font("Arial", Font.BOLD, 14));
+            gbc.gridx = 0; gbc.gridy = gridY;
+            formPanel.add(label2Component, gbc);
+            gbc.gridx = 1; gbc.gridy = gridY;
+            formPanel.add(field2, gbc);
+            gridY++;
+        }
+
+        if (field3 != null) {
+            JLabel screenSizeLabel = new JLabel("Screen Size (inches):");
+            screenSizeLabel.setFont(new Font("Arial", Font.BOLD, 14));
+            gbc.gridx = 0; gbc.gridy = gridY;
+            formPanel.add(screenSizeLabel, gbc);
+            gbc.gridx = 1; gbc.gridy = gridY;
+            formPanel.add(field3, gbc);
+            gridY++;
+        }
+
+        if (field4 != null) {
+            JLabel hddLabel = new JLabel("HDD Size (GB):");
+            hddLabel.setFont(new Font("Arial", Font.BOLD, 14));
+            gbc.gridx = 0; gbc.gridy = gridY;
+            formPanel.add(hddLabel, gbc);
+            gbc.gridx = 1; gbc.gridy = gridY;
+            formPanel.add(field4, gbc);
+            gridY++;
+        }
+
+        if (comboBox != null) {
+            JLabel osLabel = new JLabel("Operating System:");
+            osLabel.setFont(new Font("Arial", Font.BOLD, 14));
+            gbc.gridx = 0; gbc.gridy = gridY;
+            formPanel.add(osLabel, gbc);
+            gbc.gridx = 1; gbc.gridy = gridY;
+            formPanel.add(comboBox, gbc);
+            gridY++;
+        }
+
+        JButton submitButton = new JButton("Submit");
+        gbc.gridx = 0; gbc.gridy = gridY;
+        formPanel.add(submitButton, gbc);
+
+        goBackButton = new JButton("Go Back");
+        gbc.gridx = 1; gbc.gridy = gridY;
+        formPanel.add(goBackButton, gbc);
+
+        frame.add(formPanel, BorderLayout.CENTER);
+
+        submitButton.addActionListener(e -> handleSubmit(field1, field2, field3, field4, comboBox));
+        goBackButton.addActionListener(e -> showProductSelection());
+
         frame.revalidate();
         frame.repaint();
     }
 
-    private void clearPanel() {
-        frame.getContentPane().removeAll();
-        orderSummary.setText(""); // Clear the text area
-        frame.repaint();
-    }
-    
-    private void showConfirmationDialog(String objectName, String details) {
-        JFrame confirmationFrame = new JFrame("Order Confirmation");
-        confirmationFrame.setSize(400, 300);
-        confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        confirmationFrame.setLayout(new BorderLayout());
-
-        JLabel messageLabel = new JLabel("Congratulations! You have made the order", JLabel.CENTER);
-        messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        confirmationFrame.add(messageLabel, BorderLayout.NORTH);
-
-        JTextArea detailsArea = new JTextArea(10, 30);
-        detailsArea.setEditable(false);
-        detailsArea.setText("Order: " + objectName + "\n\nDetails:\n" + details);
-        confirmationFrame.add(new JScrollPane(detailsArea), BorderLayout.CENTER);
-
-        JButton okButton = new JButton("OK");
-        okButton.addActionListener(e -> confirmationFrame.dispose());
-        confirmationFrame.add(okButton, BorderLayout.SOUTH);
-
-        confirmationFrame.setVisible(true);
+    // Overloaded method for cases where JComboBox and some fields might be null
+    private void showForm(String prompt, String label1, String label2,
+                        JTextField field1, JTextField field2, JTextField field3, JTextField field4) {
+        showForm(prompt, label1, label2, field1, field2, field3, field4, null);
     }
 
 
-    private ImageIcon resizeIcon(ImageIcon icon, Dimension size) {
-        Image image = icon.getImage();
-        Image resizedImage = image.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImage);
+
+
+
+
+    private void showPCTowerForm() {
+        previousSelection = "PC Tower";
+        showForm("Please specify the attributes of the desired product",
+                "Memory Size (GB):", "CPU Frequency (GHz):",
+                new JTextField(10), new JTextField(10), null, null);
     }
+
+    private void showPCScreenForm() {
+        previousSelection = "PC Screen";
+        showForm("Please specify the attributes of the desired product",
+                "Screen Size (inches):", null,
+                new JTextField(10), null, null, null);
+    }
+
+    private void showPersonalComputerForm() {
+        previousSelection = "Personal Computer";
+        showForm("Please specify the attributes of the desired product",
+                "Memory Size (GB):", "CPU Frequency (GHz):",
+                new JTextField(10), new JTextField(10),
+                new JTextField(10), new JTextField(10));
+    }
+
+    private void showWorkstationForm() {
+        previousSelection = "Workstation";
+        showForm("Please specify the attributes of the desired product",
+                "Memory Size (GB):", "CPU Frequency (GHz):",
+                new JTextField(10), new JTextField(10),
+                new JTextField(10), new JTextField(10),
+                new JComboBox<>(new String[]{"Windows", "Linux"}));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+        
+
+
+        private void handleSubmit(JTextField field1, JTextField field2, JTextField field3, JTextField field4, JComboBox<String> comboBox) {
+            try {
+                double memorySize = field1 != null ? Double.parseDouble(field1.getText()) : 0;
+                double cpuFreq = field2 != null ? Double.parseDouble(field2.getText()) : 0;
+                double screenSize = field3 != null ? Double.parseDouble(field3.getText()) : 0;
+                int hddSize = field4 != null ? Integer.parseInt(field4.getText()) : 0;
+                String os = comboBox != null ? (String) comboBox.getSelectedItem() : null;
+        
+                String result;
+                String objectName;
+        
+                switch (previousSelection) {
+                    case "PC Tower":
+                        Pc_Tower pcTower = new Pc_Tower(memorySize, cpuFreq);
+                        result = pcTower.toString();
+                        objectName = "PC Tower";
+                        break;
+                    case "PC Screen":
+                        Pc_Screen pcScreen = new Pc_Screen(screenSize);
+                        result = pcScreen.toString();
+                        objectName = "PC Screen";
+                        break;
+                    case "Personal Computer":
+                        Pc_Tower pcTowerPersonal = new Pc_Tower(memorySize, cpuFreq);
+                        Pc_Screen pcScreenPersonal = new Pc_Screen(screenSize);
+                        Personal_Computer pc = new Personal_Computer(pcTowerPersonal, pcScreenPersonal, hddSize);
+                        result = pc.toString();
+                        objectName = "Personal Computer";
+                        break;
+                    case "Workstation":
+                        Pc_Tower pcTowerWorkstation = new Pc_Tower(memorySize, cpuFreq);
+                        Pc_Screen pcScreenWorkstation = new Pc_Screen(screenSize);
+                        Personal_Computer pcWorkstation = new Personal_Computer(pcTowerWorkstation, pcScreenWorkstation, hddSize);
+                        Workstation workstation = new Workstation(pcWorkstation, os);
+                        result = workstation.toString();
+                        objectName = "Workstation";
+                        break;
+                    default:
+                        throw new IllegalStateException("Unexpected value: " + previousSelection);
+                }
+        
+                showConfirmationDialog(objectName, result);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(frame, "Please enter valid numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        
+
+        private void showProductSelection() {
+            clearPanel();
+            frame.add(buttonPanel, BorderLayout.CENTER);
+            frame.revalidate();
+            frame.repaint();
+        }
+
+        private void clearPanel() {
+            frame.getContentPane().removeAll();
+            orderSummary.setText(""); // Clear the text area
+            frame.repaint();
+        }
+        
+        private void showConfirmationDialog(String objectName, String details) {
+            JFrame confirmationFrame = new JFrame("Order Confirmation");
+            confirmationFrame.setSize(400, 300);
+            confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            confirmationFrame.setLayout(new BorderLayout());
+
+            JLabel messageLabel = new JLabel("Congratulations! You have made the order", JLabel.CENTER);
+            messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
+            confirmationFrame.add(messageLabel, BorderLayout.NORTH);
+
+            JTextArea detailsArea = new JTextArea(10, 30);
+            detailsArea.setEditable(false);
+            detailsArea.setText("Order: " + objectName + "\n\nDetails:\n" + details);
+            confirmationFrame.add(new JScrollPane(detailsArea), BorderLayout.CENTER);
+
+            JButton okButton = new JButton("OK");
+            okButton.addActionListener(e -> confirmationFrame.dispose());
+            confirmationFrame.add(okButton, BorderLayout.SOUTH);
+
+            confirmationFrame.setVisible(true);
+        }
+
+
+        private ImageIcon resizeIcon(ImageIcon icon, Dimension size) {
+            Image image = icon.getImage();
+            Image resizedImage = image.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        }
 
 
 

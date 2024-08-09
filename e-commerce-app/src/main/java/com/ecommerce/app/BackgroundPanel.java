@@ -12,10 +12,9 @@ public class BackgroundPanel extends JPanel {
     private Image backgroundImage;
 
     public BackgroundPanel(ImageIcon imageIcon, LayoutManager layout) {
-
         //call the jpanel mother class constructor
+        
         super(layout);
-
         this.backgroundImage = imageIcon.getImage();
         // Set preferred size if necessary, to make sure it fits the image or desired dimensions
         setPreferredSize(new Dimension(backgroundImage.getWidth(this), backgroundImage.getHeight(this)));
