@@ -96,11 +96,16 @@ public class EShopGUI {
         // Add the grid panel to the center of buttonPanel
         buttonPanel.add(gridPanel, BorderLayout.CENTER);
     
-        // Create a text area for order summary and add to buttonPanel
+        //Create a text area for order summary and add to buttonPanel
         orderSummary = new JTextArea(5, 30);
         orderSummary.setEditable(false);
-        buttonPanel.add(new JScrollPane(orderSummary), BorderLayout.SOUTH);
-    
+        orderSummary.setOpaque(false); // Make JTextArea transparent
+        orderSummary.setForeground(Color.WHITE); // Ensure text is visible
+        JScrollPane scrollPane = new JScrollPane(orderSummary);
+        scrollPane.setOpaque(false); // Make JScrollPane transparent
+        scrollPane.getViewport().setOpaque(false); // Ensure the viewport is transparent
+        buttonPanel.add(scrollPane, BorderLayout.SOUTH);
+        
         // Add buttonPanel to frame
         frame.add(buttonPanel, BorderLayout.CENTER);
     
