@@ -45,9 +45,10 @@ public class EShopGUI {
 
 
     public void createAndShowGUI() {
+
         frame = new JFrame("E-Shop Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 400);
+        frame.setSize(800, 600);
         frame.setLayout(new BorderLayout());
 
         buttonGridPanel = new JPanel(new GridBagLayout());
@@ -93,11 +94,11 @@ public class EShopGUI {
         personalComputerButton.setHorizontalTextPosition(SwingConstants.CENTER);
         workstationButton.setHorizontalTextPosition(SwingConstants.CENTER);
 
-        pcTowerButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Black border with 2-pixel width
-        pcScreenButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        personalComputerButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-        workstationButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-
+        //add button frames
+        pcTowerButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Add border
+        pcScreenButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Add border
+        personalComputerButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Add border
+        workstationButton.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2)); // Add border
 
 
         GridBagConstraints gbc = new GridBagConstraints();
@@ -127,7 +128,6 @@ public class EShopGUI {
         personalComputerButton.addActionListener(e -> showPersonalComputerForm());
         workstationButton.addActionListener(e -> showWorkstationForm());
 
-        frame.setVisible(true);
 
 
     JButton exitButton = new JButton("Exit");
@@ -137,6 +137,8 @@ public class EShopGUI {
     headerPanel.add(exitButton, BorderLayout.EAST);
     buttonPanel.add(headerPanel, BorderLayout.NORTH);
 
+    frame.pack();
+    frame.setVisible(true);
     }
 
     // Method for all parameters including JComboBox
