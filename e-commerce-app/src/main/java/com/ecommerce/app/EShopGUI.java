@@ -289,107 +289,100 @@ public class EShopGUI {
 
 
 
-
-
-
-
-
-
-
-        
-
         
 
 
-        private void handleSubmit(JTextField field1, JTextField field2, JTextField field3, JTextField field4, JComboBox<String> comboBox) {
-            try {
-                double memorySize = field1 != null ? Double.parseDouble(field1.getText()) : 0;
-                double cpuFreq = field2 != null ? Double.parseDouble(field2.getText()) : 0;
-                double screenSize = field3 != null ? Double.parseDouble(field3.getText()) : 0;
-                int hddSize = field4 != null ? Integer.parseInt(field4.getText()) : 0;
-                String os = comboBox != null ? (String) comboBox.getSelectedItem() : null;
-        
-                String result;
-                String objectName;
-        
-                switch (previousSelection) {
-                    case "PC Tower":
-                        Pc_Tower pcTower = new Pc_Tower(memorySize, cpuFreq);
-                        result = pcTower.toString();
-                        objectName = "PC Tower";
-                        break;
-                    case "PC Screen":
-                        Pc_Screen pcScreen = new Pc_Screen(screenSize);
-                        result = pcScreen.toString();
-                        objectName = "PC Screen";
-                        break;
-                    case "Personal Computer":
-                        Pc_Tower pcTowerPersonal = new Pc_Tower(memorySize, cpuFreq);
-                        Pc_Screen pcScreenPersonal = new Pc_Screen(screenSize);
-                        Personal_Computer pc = new Personal_Computer(pcTowerPersonal, pcScreenPersonal, hddSize);
-                        result = pc.toString();
-                        objectName = "Personal Computer";
-                        break;
-                    case "Workstation":
-                        Pc_Tower pcTowerWorkstation = new Pc_Tower(memorySize, cpuFreq);
-                        Pc_Screen pcScreenWorkstation = new Pc_Screen(screenSize);
-                        Personal_Computer pcWorkstation = new Personal_Computer(pcTowerWorkstation, pcScreenWorkstation, hddSize);
-                        Workstation workstation = new Workstation(pcWorkstation, os);
-                        result = workstation.toString();
-                        objectName = "Workstation";
-                        break;
-                    default:
-                        throw new IllegalStateException("Unexpected value: " + previousSelection);
-                }
-        
-                showConfirmationDialog(objectName, result);
-            } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(frame, "Please enter valid numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    private void handleSubmit(JTextField field1, JTextField field2, JTextField field3, JTextField field4, JComboBox<String> comboBox) {
+        try {
+            double memorySize = field1 != null ? Double.parseDouble(field1.getText()) : 0;
+            double cpuFreq = field2 != null ? Double.parseDouble(field2.getText()) : 0;
+            double screenSize = field3 != null ? Double.parseDouble(field3.getText()) : 0;
+            int hddSize = field4 != null ? Integer.parseInt(field4.getText()) : 0;
+            String os = comboBox != null ? (String) comboBox.getSelectedItem() : null;
+    
+            String result;
+            String objectName;
+    
+            switch (previousSelection) {
+                case "PC Tower":
+                    Pc_Tower pcTower = new Pc_Tower(memorySize, cpuFreq);
+                    result = pcTower.toString();
+                    objectName = "PC Tower";
+                    break;
+                case "PC Screen":
+                    Pc_Screen pcScreen = new Pc_Screen(screenSize);
+                    result = pcScreen.toString();
+                    objectName = "PC Screen";
+                    break;
+                case "Personal Computer":
+                    Pc_Tower pcTowerPersonal = new Pc_Tower(memorySize, cpuFreq);
+                    Pc_Screen pcScreenPersonal = new Pc_Screen(screenSize);
+                    Personal_Computer pc = new Personal_Computer(pcTowerPersonal, pcScreenPersonal, hddSize);
+                    result = pc.toString();
+                    objectName = "Personal Computer";
+                    break;
+                case "Workstation":
+                    Pc_Tower pcTowerWorkstation = new Pc_Tower(memorySize, cpuFreq);
+                    Pc_Screen pcScreenWorkstation = new Pc_Screen(screenSize);
+                    Personal_Computer pcWorkstation = new Personal_Computer(pcTowerWorkstation, pcScreenWorkstation, hddSize);
+                    Workstation workstation = new Workstation(pcWorkstation, os);
+                    result = workstation.toString();
+                    objectName = "Workstation";
+                    break;
+                default:
+                    throw new IllegalStateException("Unexpected value: " + previousSelection);
             }
+    
+            showConfirmationDialog(objectName, result);
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(frame, "Please enter valid numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
         
 
-        private void showProductSelection() {
-            clearPanel();
-            frame.add(buttonPanel, BorderLayout.CENTER);
-            frame.revalidate();
-            frame.repaint();
-        }
+    private void showProductSelection() {
+        clearPanel();
+        frame.add(buttonPanel, BorderLayout.CENTER);
+        frame.revalidate();
+        frame.repaint();
+    }
 
-        private void clearPanel() {
-            frame.getContentPane().removeAll();
-            orderSummary.setText(""); // Clear the text area
-            frame.repaint();
-        }
+    private void clearPanel() {
+        frame.getContentPane().removeAll();
+        orderSummary.setText(""); // Clear the text area
+        frame.repaint();
+    }
         
-        private void showConfirmationDialog(String objectName, String details) {
-            JFrame confirmationFrame = new JFrame("Order Confirmation");
-            confirmationFrame.setSize(400, 300);
-            confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            confirmationFrame.setLayout(new BorderLayout());
-
-            JLabel messageLabel = new JLabel("Congratulations! You have made the order", JLabel.CENTER);
-            messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
-            confirmationFrame.add(messageLabel, BorderLayout.NORTH);
-
-            JTextArea detailsArea = new JTextArea(10, 30);
-            detailsArea.setEditable(false);
-            detailsArea.setText("Order: " + objectName + "\n\nDetails:\n" + details);
-            confirmationFrame.add(new JScrollPane(detailsArea), BorderLayout.CENTER);
-
-            JButton okButton = new JButton("OK");
-            okButton.addActionListener(e -> confirmationFrame.dispose());
-            confirmationFrame.add(okButton, BorderLayout.SOUTH);
-
-            confirmationFrame.setVisible(true);
-        }
 
 
-        private ImageIcon resizeIcon(ImageIcon icon, Dimension size) {
-            Image image = icon.getImage();
-            Image resizedImage = image.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
-            return new ImageIcon(resizedImage);
-        }
+    private void showConfirmationDialog(String objectName, String details) {
+        JFrame confirmationFrame = new JFrame("Order Confirmation");
+        confirmationFrame.setSize(400, 300);
+        confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        confirmationFrame.setLayout(new BorderLayout());
+
+        JLabel messageLabel = new JLabel("Congratulations! You have made the order", JLabel.CENTER);
+        messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
+        confirmationFrame.add(messageLabel, BorderLayout.NORTH);
+
+        JTextArea detailsArea = new JTextArea(10, 30);
+        detailsArea.setEditable(false);
+        detailsArea.setText("Order: " + objectName + "\n\nDetails:\n" + details);
+        confirmationFrame.add(new JScrollPane(detailsArea), BorderLayout.CENTER);
+
+        JButton okButton = new JButton("OK");
+        okButton.addActionListener(e -> confirmationFrame.dispose());
+        confirmationFrame.add(okButton, BorderLayout.SOUTH);
+
+        confirmationFrame.setVisible(true);
+    }
+
+
+    private ImageIcon resizeIcon(ImageIcon icon, Dimension size) {
+        Image image = icon.getImage();
+        Image resizedImage = image.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedImage);
+    }
 
 
 
