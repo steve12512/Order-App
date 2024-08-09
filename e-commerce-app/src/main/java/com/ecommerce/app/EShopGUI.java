@@ -1,9 +1,11 @@
 package com.ecommerce.app;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
 
 import javax.swing.ImageIcon;
@@ -16,6 +18,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 public class EShopGUI {
 
@@ -36,6 +39,9 @@ public class EShopGUI {
     private final ImageIcon pcScreenIcon = new ImageIcon(getClass().getResource("/photographs/screen.jpg"));
     private final ImageIcon personalComputerIcon = new ImageIcon(getClass().getResource("/photographs/desktop.jpg"));
     private final ImageIcon workstationIcon = new ImageIcon(getClass().getResource("/photographs/workstation.jpg"));
+
+
+
     public void createAndShowGUI() {
         frame = new JFrame("E-Shop Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -49,10 +55,41 @@ public class EShopGUI {
         buttonPanel.add(chooseProductLabel, BorderLayout.NORTH);
         buttonPanel.add(buttonGridPanel, BorderLayout.CENTER);
 
+
+        //set default button dimension
+        Dimension buttonSize = new Dimension(300, 200);
+
+        //create the buttons
         JButton pcTowerButton = new JButton("PC Tower");
         JButton pcScreenButton = new JButton("PC Screen");
         JButton personalComputerButton = new JButton("Personal Computer");
         JButton workstationButton = new JButton("Workstation");
+
+        //specify their size dimensions
+        pcTowerButton.setPreferredSize(buttonSize);
+        pcScreenButton.setPreferredSize(buttonSize);
+        personalComputerButton.setPreferredSize(buttonSize);
+        workstationButton.setPreferredSize(buttonSize);
+
+        //resize images so that they fit nicely with their corresponding buttons and then add the images to their buttons
+        pcTowerButton.setIcon(resizeIcon(pcTowerIcon, buttonSize));
+        pcScreenButton.setIcon(resizeIcon(pcScreenIcon, buttonSize));
+        personalComputerButton.setIcon(resizeIcon(personalComputerIcon, buttonSize));
+        workstationButton.setIcon(resizeIcon(workstationIcon, buttonSize));
+
+
+        // Set text and icon alignment
+        pcTowerButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        pcTowerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        pcScreenButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        pcScreenButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        personalComputerButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        personalComputerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        workstationButton.setHorizontalTextPosition(SwingConstants.CENTER);
+        workstationButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+
+
+
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
@@ -331,9 +368,11 @@ private void showWorkstationForm() {
     }
 
 
-
-
-
+    private ImageIcon resizeIcon(ImageIcon icon, Dimension size) {
+        Image image = icon.getImage();
+        Image resizedImage = image.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
+        return new ImageIcon(resizedImage);
+    }
 
 
 
