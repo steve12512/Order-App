@@ -1,4 +1,5 @@
 com\ecommerce\app\EShopGUI.class
+com\ecommerce\app\BackgroundPanel.class
 com\ecommerce\app\Pc_Screen.class
 com\ecommerce\app\Pc_Tower.class
 com\ecommerce\app\Workstation.class

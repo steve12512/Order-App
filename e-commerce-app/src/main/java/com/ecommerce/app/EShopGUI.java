@@ -58,7 +58,7 @@ public class EShopGUI {
         buttonPanel.add(chooseProductLabel, BorderLayout.NORTH);
         buttonPanel.add(buttonGridPanel, BorderLayout.CENTER);
 
-
+        
         //set default button dimension
         Dimension buttonSize = new Dimension(300, 200);
 
