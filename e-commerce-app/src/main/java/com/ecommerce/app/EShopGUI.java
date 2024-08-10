@@ -136,10 +136,10 @@ public class EShopGUI {
 
     
     private void showForm(String prompt, String label1, String label2,
-                      JTextField field1, JTextField field2, JTextField field3, JTextField field4,
+                      JTextField memory, JTextField cpu, JTextField screen_size, JTextField pc,
                       JComboBox<String> comboBox) {
     clearPanel();
-
+    
     // Create BackgroundPanel with the same background image as the main panel
     BackgroundPanel formBackgroundPanel = new BackgroundPanel(background, new BorderLayout());
     
@@ -170,7 +170,7 @@ public class EShopGUI {
 
     int gridY = 1;
 
-    if (label1 != null && field1 != null) {
+    if (label1 != null && memory != null) {
         JLabel label1Component = new JLabel(label1);
         label1Component.setFont(new Font("Arial", Font.BOLD, 14));
         label1Component.setForeground(Color.WHITE); // Ensure text is visible on background
@@ -179,11 +179,11 @@ public class EShopGUI {
         formPanel.add(label1Component, gbc);
         gbc.gridx = 1;
         gbc.gridy = gridY;
-        formPanel.add(field1, gbc);
+        formPanel.add(memory, gbc);
         gridY++;
     }
 
-    if (label2 != null && field2 != null) {
+    if (label2 != null && cpu != null) {
         JLabel label2Component = new JLabel(label2);
         label2Component.setFont(new Font("Arial", Font.BOLD, 14));
         label2Component.setForeground(Color.WHITE); // Ensure text is visible on background
@@ -192,11 +192,11 @@ public class EShopGUI {
         formPanel.add(label2Component, gbc);
         gbc.gridx = 1;
         gbc.gridy = gridY;
-        formPanel.add(field2, gbc);
+        formPanel.add(cpu, gbc);
         gridY++;
     }
 
-    if (field3 != null) {
+    if (screen_size != null) {
         JLabel screenSizeLabel = new JLabel("Screen Size (inches):");
         screenSizeLabel.setFont(new Font("Arial", Font.BOLD, 14));
         screenSizeLabel.setForeground(Color.WHITE); // Ensure text is visible on background
@@ -205,11 +205,11 @@ public class EShopGUI {
         formPanel.add(screenSizeLabel, gbc);
         gbc.gridx = 1;
         gbc.gridy = gridY;
-        formPanel.add(field3, gbc);
+        formPanel.add(screen_size, gbc);
         gridY++;
     }
 
-    if (field4 != null) {
+    if (pc != null) {
         JLabel hddLabel = new JLabel("HDD Size (GB):");
         hddLabel.setFont(new Font("Arial", Font.BOLD, 14));
         hddLabel.setForeground(Color.WHITE); // Ensure text is visible on background
@@ -218,7 +218,7 @@ public class EShopGUI {
         formPanel.add(hddLabel, gbc);
         gbc.gridx = 1;
         gbc.gridy = gridY;
-        formPanel.add(field4, gbc);
+        formPanel.add(pc, gbc);
         gridY++;
     }
 
@@ -259,24 +259,12 @@ public class EShopGUI {
 
 
 
-
-
-
-
-
-
-    submitButton.addActionListener(e -> handleSubmit(field1, field2, field3, field4, comboBox));
+    submitButton.addActionListener(e -> handleSubmit(memory, cpu, screen_size, pc, comboBox));
     goBackButton.addActionListener(e -> showProductSelection());
 
     frame.revalidate();
     frame.repaint();
 }
-
-
-
-
-
-
 
 
 
@@ -337,6 +325,8 @@ public class EShopGUI {
             String result;
             String objectName;
     
+
+
             switch (previousSelection) {
                 case "PC Tower":
                     Pc_Tower pcTower = new Pc_Tower(memorySize, cpuFreq);
