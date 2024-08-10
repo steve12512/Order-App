@@ -109,7 +109,8 @@ public class EShopGUI {
         // Add buttonPanel to frame
         frame.add(buttonPanel, BorderLayout.CENTER);
     
-        // Action listeners for buttons
+        //Action listeners for buttons
+        //depending on the button clicked, a product specific method is called, which then calls the general show form method
         pcTowerButton.addActionListener(e -> showPCTowerForm());
         pcScreenButton.addActionListener(e -> showPCScreenForm());
         personalComputerButton.addActionListener(e -> showPersonalComputerForm());
@@ -130,6 +131,37 @@ public class EShopGUI {
         return button;
     }
     
+
+    //these methods call the general show form method
+    private void showPCTowerForm() {
+        previousSelection = "PC Tower";
+        showForm("Please specify the attributes of the desired product",
+                "Memory Size (GB):", "CPU Frequency (GHz):",
+                new JTextField(10), new JTextField(10), null, null, null);
+    }
+
+    private void showPCScreenForm() {
+        previousSelection = "PC Screen";
+        showForm("Please specify the attributes of the desired product",
+                "Screen Size (inches):", null, null, null, new JTextField(10), null, null);
+    }
+
+    private void showPersonalComputerForm() {
+        previousSelection = "Personal Computer";
+        showForm("Please specify the attributes of the desired product",
+                "Memory Size (GB):", "CPU Frequency (GHz):",
+                new JTextField(10), new JTextField(10),
+                new JTextField(10), new JTextField(10), null);
+    }
+
+    private void showWorkstationForm() {
+        previousSelection = "Workstation";
+        showForm("Please specify the attributes of the desired product",
+                "Memory Size (GB):", "CPU Frequency (GHz):",
+                new JTextField(10), new JTextField(10),
+                new JTextField(10), new JTextField(10),
+                new JComboBox<>(new String[]{"Windows", "Linux"}));
+    }
 
 
 
@@ -254,11 +286,6 @@ public class EShopGUI {
     frame.add(formBackgroundPanel, BorderLayout.CENTER);
 
 
-
-
-
-
-
     submitButton.addActionListener(e -> handleSubmit(memory, cpu, screen_size, pc, comboBox));
     goBackButton.addActionListener(e -> showProductSelection());
 
@@ -271,40 +298,6 @@ public class EShopGUI {
 
 
 
-
-
-
-
-    private void showPCTowerForm() {
-        previousSelection = "PC Tower";
-        showForm("Please specify the attributes of the desired product",
-                "Memory Size (GB):", "CPU Frequency (GHz):",
-                new JTextField(10), new JTextField(10), null, null, null);
-    }
-
-    private void showPCScreenForm() {
-        previousSelection = "PC Screen";
-
-        showForm("Please specify the attributes of the desired product",
-                "Screen Size (inches):", null, null, null, new JTextField(10), null, null);
-    }
-
-    private void showPersonalComputerForm() {
-        previousSelection = "Personal Computer";
-        showForm("Please specify the attributes of the desired product",
-                "Memory Size (GB):", "CPU Frequency (GHz):",
-                new JTextField(10), new JTextField(10),
-                new JTextField(10), new JTextField(10), null);
-    }
-
-    private void showWorkstationForm() {
-        previousSelection = "Workstation";
-        showForm("Please specify the attributes of the desired product",
-                "Memory Size (GB):", "CPU Frequency (GHz):",
-                new JTextField(10), new JTextField(10),
-                new JTextField(10), new JTextField(10),
-                new JComboBox<>(new String[]{"Windows", "Linux"}));
-    }
 
 
 
@@ -325,24 +318,27 @@ public class EShopGUI {
             String result;
             String objectName;
     
-
+            Product product = null;
 
             switch (previousSelection) {
                 case "PC Tower":
                     Pc_Tower pcTower = new Pc_Tower(memorySize, cpuFreq);
                     result = pcTower.toString();
                     objectName = "PC Tower";
+                    product = pcTower;
                     break;
                 case "PC Screen":
                     Pc_Screen pcScreen = new Pc_Screen(screenSize);
                     result = pcScreen.toString();
                     objectName = "PC Screen";
+                    product = pcScreen;
                     break;
                 case "Personal Computer":
                     Pc_Tower pcTowerPersonal = new Pc_Tower(memorySize, cpuFreq);
                     Pc_Screen pcScreenPersonal = new Pc_Screen(screenSize);
                     Personal_Computer pc = new Personal_Computer(pcTowerPersonal, pcScreenPersonal, hddSize);
                     result = pc.toString();
+                    product = pc;
                     objectName = "Personal Computer";
                     break;
                 case "Workstation":
@@ -352,12 +348,13 @@ public class EShopGUI {
                     Workstation workstation = new Workstation(pcWorkstation, os);
                     result = workstation.toString();
                     objectName = "Workstation";
+                    product = workstation;
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + previousSelection);
             }
     
-            showConfirmationDialog(objectName, result);
+            showConfirmationDialog(objectName, result, product);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(frame, "Please enter valid numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -377,7 +374,7 @@ public class EShopGUI {
         frame.repaint();
     }
         
-private void showConfirmationDialog(String objectName, String details) {
+private void showConfirmationDialog(String objectName, String details, Product product) {
     //this method creates our final, confirmation window displaying the objects (and their objects) and their attributes respectively. it has the background of the selected product, as opposed to the initial screen's background    
 
     JFrame confirmationFrame = new JFrame("Order Confirmation");
