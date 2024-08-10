@@ -383,66 +383,72 @@ public class EShopGUI {
         frame.repaint();
     }
         
+private void showConfirmationDialog(String objectName, String details) {
+    //this method creates our final, confirmation window displaying the objects (and their objects) and their attributes respectively. it has the background of the selected product, as opposed to the initial screen's background    
 
+    JFrame confirmationFrame = new JFrame("Order Confirmation");
+    confirmationFrame.setSize(400, 300);
+    confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    confirmationFrame.setLayout(new BorderLayout());
 
-    private void showConfirmationDialog(String objectName, String details) {
-        // Select the correct background image based on the product chosen
-        ImageIcon backgroundIcon;
-        switch (objectName) {
-            case "PC Tower":
-                backgroundIcon = pcTowerIcon;
-                break;
-            case "PC Screen":
-                backgroundIcon = pcScreenIcon;
-                break;
-            case "Personal Computer":
-                backgroundIcon = personalComputerIcon;
-                break;
-            case "Workstation":
-                backgroundIcon = workstationIcon;
-                break;
-            default:
-                backgroundIcon = background; // Default background image
-                break;
-        }
-    
-        // Create a new JFrame for the confirmation dialog
-        JFrame confirmationFrame = new JFrame("Order Confirmation");
-        confirmationFrame.setSize(400, 300);
-        confirmationFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        confirmationFrame.setLayout(new BorderLayout());
-    
-        // Use a BackgroundPanel with the selected image
-        BackgroundPanel confirmationPanel = new BackgroundPanel(backgroundIcon, new BorderLayout());
-    
-        // Add message label
-        JLabel messageLabel = new JLabel("Congratulations! You have made an order \n Order details;", JLabel.CENTER);
-        messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
-        messageLabel.setForeground(Color.WHITE); // Ensure text is visible on the background
-        confirmationPanel.add(messageLabel, BorderLayout.NORTH);
-    
-        // Add order details
-        JTextArea detailsArea = new JTextArea(10, 30);
-        detailsArea.setEditable(false);
-        detailsArea.setText("Order: " + objectName + "\n\nDetails:\n" + details);
-        detailsArea.setOpaque(false); // Make the text area transparent
-        detailsArea.setForeground(Color.WHITE); // Ensure text is visible on the background
-        JScrollPane scrollPane = new JScrollPane(detailsArea);
-        scrollPane.setOpaque(false); // Make JScrollPane transparent
-        scrollPane.getViewport().setOpaque(false); // Ensure the viewport is transparent
-        confirmationPanel.add(scrollPane, BorderLayout.CENTER);
-    
-        // Add OK button
-        JButton okButton = new JButton("OK");
-        okButton.addActionListener(e -> confirmationFrame.dispose());
-        confirmationPanel.add(okButton, BorderLayout.SOUTH);
-    
-        // Add the BackgroundPanel to the confirmation frame
-        confirmationFrame.add(confirmationPanel, BorderLayout.CENTER);
-    
-        // Make the confirmation frame visible
-        confirmationFrame.setVisible(true);
+    ImageIcon image = null;
+    //depending on the object, choose an appropriate background image.
+    if (objectName.equals("PC Tower")) {
+        image = pcTowerIcon;
+    } else if (objectName.equals("PC Screen")) {
+        image = pcScreenIcon;
+    } else if (objectName.equals("Personal Computer")) {
+        image = personalComputerIcon;
+    } else {
+        image = workstationIcon;
     }
+
+
+    //create a JPanel object containing the image as its background
+    BackgroundPanel panel = new BackgroundPanel(image, new BorderLayout());
+
+    JLabel messageLabel = new JLabel("Congratulations! You have made the order", JLabel.CENTER);
+    messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
+    // Set the label to be non-opaque so it doesn't block the background
+    messageLabel.setOpaque(false);
+    panel.add(messageLabel, BorderLayout.NORTH);
+
+    JTextArea detailsArea = new JTextArea(10, 30);
+    detailsArea.setEditable(false);
+    // Make the text area transparent
+    detailsArea.setOpaque(false);
+    detailsArea.setBackground(new Color(0, 0, 0, 0)); // Transparent background
+    detailsArea.setForeground(Color.WHITE); // Change text color for better visibility
+
+    // Build the detailed confirmation message
+    StringBuilder result = new StringBuilder();
+    result.append("Order: ").append(objectName).append("\n\n");
+    result.append(details);
+
+    detailsArea.setText(result.toString());
+    JScrollPane scrollPane = new JScrollPane(detailsArea);
+    scrollPane.setOpaque(false); // Make the scroll pane transparent
+    scrollPane.getViewport().setOpaque(false); // Make the viewport transparent
+    panel.add(scrollPane, BorderLayout.CENTER);
+
+    JButton okButton = new JButton("OK");
+    okButton.addActionListener(e -> confirmationFrame.dispose());
+    okButton.setOpaque(false); // Make the button transparent
+    okButton.setContentAreaFilled(false); // Ensure the button doesn't have a filled background
+    panel.add(okButton, BorderLayout.SOUTH);
+
+    //add the panel to the frame
+    confirmationFrame.add(panel);
+
+    //revalidate and repaint the frame to ensure the background is drawn
+    confirmationFrame.revalidate();
+    confirmationFrame.repaint();
+
+    confirmationFrame.setVisible(true);
+}
+
+
+    
     
 
 
