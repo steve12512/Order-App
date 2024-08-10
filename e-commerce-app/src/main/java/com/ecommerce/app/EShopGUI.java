@@ -253,6 +253,18 @@ public class EShopGUI {
     // Add BackgroundPanel to frame
     frame.add(formBackgroundPanel, BorderLayout.CENTER);
 
+
+
+
+
+
+
+
+
+
+
+
+
     submitButton.addActionListener(e -> handleSubmit(field1, field2, field3, field4, comboBox));
     goBackButton.addActionListener(e -> showProductSelection());
 
@@ -274,32 +286,19 @@ public class EShopGUI {
 
 
 
-    
-
-
-    // Overloaded method for cases where JComboBox and some fields might be null
-    private void showForm(String prompt, String label1, String label2,
-                        JTextField field1, JTextField field2, JTextField field3, JTextField field4) {
-        showForm(prompt, label1, label2, field1, field2, field3, field4, null);
-    }
-
-
-
-
-
 
     private void showPCTowerForm() {
         previousSelection = "PC Tower";
         showForm("Please specify the attributes of the desired product",
                 "Memory Size (GB):", "CPU Frequency (GHz):",
-                new JTextField(10), new JTextField(10), null, null);
+                new JTextField(10), new JTextField(10), null, null, null);
     }
 
     private void showPCScreenForm() {
         previousSelection = "PC Screen";
+
         showForm("Please specify the attributes of the desired product",
-                "Screen Size (inches):", null,
-                new JTextField(10), null, null, null);
+                "Screen Size (inches):", null, new JTextField(10), null, null, null, null);
     }
 
     private void showPersonalComputerForm() {
@@ -307,7 +306,7 @@ public class EShopGUI {
         showForm("Please specify the attributes of the desired product",
                 "Memory Size (GB):", "CPU Frequency (GHz):",
                 new JTextField(10), new JTextField(10),
-                new JTextField(10), new JTextField(10));
+                new JTextField(10), new JTextField(10), null);
     }
 
     private void showWorkstationForm() {
