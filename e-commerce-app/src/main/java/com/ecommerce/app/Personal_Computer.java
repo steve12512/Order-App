@@ -1,5 +1,5 @@
 package com.ecommerce.app;
-public class Personal_Computer {
+public class Personal_Computer extends  Product {
     //Class representing a Personal Computer
 
     private Pc_Tower pc_tower;

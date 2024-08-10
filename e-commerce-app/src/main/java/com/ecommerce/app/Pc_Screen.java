@@ -1,5 +1,5 @@
 package com.ecommerce.app;
-public class Pc_Screen {
+public class Pc_Screen extends  Product{
     //Class representing a PC Screen and its attributes
 
     private double inches;

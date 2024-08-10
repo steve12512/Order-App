@@ -1,5 +1,5 @@
 package com.ecommerce.app;
-public class Pc_Tower {
+public class Pc_Tower extends  Product{
     //Class representing a PC Tower and its attributes
 
     private double memory_size;
