@@ -298,7 +298,7 @@ public class EShopGUI {
         previousSelection = "PC Screen";
 
         showForm("Please specify the attributes of the desired product",
-                "Screen Size (inches):", null, new JTextField(10), null, null, null, null);
+                "Screen Size (inches):", null, null, null, new JTextField(10), null, null);
     }
 
     private void showPersonalComputerForm() {
