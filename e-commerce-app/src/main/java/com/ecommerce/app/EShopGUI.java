@@ -130,6 +130,11 @@ public class EShopGUI {
         return button;
     }
     
+
+
+
+
+    
     private void showForm(String prompt, String label1, String label2,
                       JTextField field1, JTextField field2, JTextField field3, JTextField field4,
                       JComboBox<String> comboBox) {
@@ -411,6 +416,8 @@ private void showConfirmationDialog(String objectName, String details) {
     messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
     // Set the label to be non-opaque so it doesn't block the background
     messageLabel.setOpaque(false);
+    messageLabel.setForeground(Color.WHITE);  // Set text color to white
+
     panel.add(messageLabel, BorderLayout.NORTH);
 
     JTextArea detailsArea = new JTextArea(10, 30);
@@ -435,6 +442,8 @@ private void showConfirmationDialog(String objectName, String details) {
     okButton.addActionListener(e -> confirmationFrame.dispose());
     okButton.setOpaque(false); // Make the button transparent
     okButton.setContentAreaFilled(false); // Ensure the button doesn't have a filled background
+    okButton.setForeground(Color.WHITE); // Set text color to white
+
     panel.add(okButton, BorderLayout.SOUTH);
 
     //add the panel to the frame

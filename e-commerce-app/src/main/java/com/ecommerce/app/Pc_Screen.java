@@ -20,6 +20,6 @@ public class Pc_Screen {
 
     @Override
     public String toString() {
-        return "PC Screen [Size: " + inches + " inches]";
+        return "Size: " + inches + " inches";
     }
 }

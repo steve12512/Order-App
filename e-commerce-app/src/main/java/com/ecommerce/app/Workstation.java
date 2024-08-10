@@ -21,6 +21,6 @@ public class Workstation extends Personal_Computer {
 
     @Override
     public String toString() {
-        return "Workstation [PC: " + super.toString() + ", Operating System: " + os + "]";
+        return "Workstation \nPC: " + super.toString() + "\nOperating System: " + os;
     }
 }

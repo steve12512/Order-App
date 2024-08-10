@@ -31,6 +31,6 @@ public class Pc_Tower {
 
     @Override
     public String toString() {
-        return "PC Tower [Memory Size: " + memory_size + " GB, CPU Frequency: " + cpu_freq + " GHz]";
+        return "Memory Size: " + memory_size + " GB, CPU Frequency: " + cpu_freq + " GHz";
     }
 }

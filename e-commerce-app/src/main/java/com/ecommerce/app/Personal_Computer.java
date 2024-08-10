@@ -40,6 +40,6 @@ public class Personal_Computer {
 
     @Override
     public String toString() {
-        return "Personal Computer [Tower: " + pc_tower + ", Screen: " + pc_screen + ", HDD: " + hdd + " GB]";
+        return " Pc_Tower: " + pc_tower + "\nScreen: " + pc_screen + ",\nHDD: " + hdd + " GB";
     }
 }
