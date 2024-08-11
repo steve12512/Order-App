@@ -1,14 +1,11 @@
 package com.ecommerce.app;
 
-/**
- * Hello world!
- *
- */
-public class App 
-{
+
+
+public class App {
+//main class containing the main method. it just creates a gui object  and calls the method to create the first window (from which all else will follow)
     public static void main( String[] args )
     {
-        //System.out.println( "Hello World!" );
         EShopGUI gui = new EShopGUI();
         gui.createAndShowGUI();
     }

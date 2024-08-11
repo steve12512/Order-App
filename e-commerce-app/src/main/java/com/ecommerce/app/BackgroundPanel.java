@@ -9,8 +9,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class BackgroundPanel extends JPanel {
-    private Image backgroundImage;
+    //class inheriting from Jpanel. this class was constructed in order to override JPanel's paintComponent, so that we set a custom background(with an image) instead of the default(black white one)
+    final private Image backgroundImage;
 
+    //constructor
     public BackgroundPanel(ImageIcon imageIcon, LayoutManager layout) {
         //call the jpanel mother class constructor
         

@@ -23,18 +23,14 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class EShopGUI {
-
+    /*class that creates window frames with buttons with icons, for the user to select which product he/she wants to purchase. he/she then proceeds to fill the attributes of the desired product in another window,
+    and then has them portrayed along with their individual components and attributes, in the final window. there is the option to go back and select another product. null or non numeric values will throw an exception in the second window*/
+    
     private JFrame frame;
-    private JTextField memorySizeField;
-    private JTextField cpuFreqField;
-    private JTextField screenSizeField;
-    private JTextField hddField;
-    private JComboBox<String> osComboBox;
     private JTextArea orderSummary;
     private JButton goBackButton;
     private BackgroundPanel buttonPanel;
     private JPanel formPanel;
-    private JPanel buttonGridPanel;
     private String previousSelection;
 
     private final ImageIcon pcTowerIcon = new ImageIcon(getClass().getResource("/photographs/computer.jpg"));
@@ -45,16 +41,17 @@ public class EShopGUI {
 
 
     public void createAndShowGUI() {
+        //creates and displays the initial window frame
 
         frame = new JFrame("E-Shop Application");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 600);
         frame.setLayout(new BorderLayout());
     
-        // BackgroundPanel with BorderLayout
+        //custom backgroundPanel with BorderLayout and custom background image
         buttonPanel = new BackgroundPanel(background, new BorderLayout());
     
-        // Header with label and exit button
+        //header with label and exit button
         JLabel chooseProductLabel = new JLabel("Please choose the product that you desire");
         chooseProductLabel.setForeground(Color.WHITE); // Ensuring text is visible on the background
         JButton exitButton = new JButton("Exit");
@@ -64,17 +61,17 @@ public class EShopGUI {
         headerPanel.add(chooseProductLabel, BorderLayout.CENTER);
         headerPanel.add(exitButton, BorderLayout.EAST);
     
-        // Add the headerPanel to the top of buttonPanel
+        //add the headerPanel to the top of buttonPanel
         buttonPanel.add(headerPanel, BorderLayout.NORTH);
     
-        // Create buttons with icons and custom sizes
+        //create buttons with icons and custom sizes
         Dimension buttonSize = new Dimension(300, 200);
         JButton pcTowerButton = createButton("PC Tower", pcTowerIcon, buttonSize);
         JButton pcScreenButton = createButton("PC Screen", pcScreenIcon, buttonSize);
         JButton personalComputerButton = createButton("Personal Computer", personalComputerIcon, buttonSize);
         JButton workstationButton = createButton("Workstation", workstationIcon, buttonSize);
     
-        // Create a grid panel for buttons
+        //create a grid panel for buttons
         JPanel gridPanel = new JPanel(new GridBagLayout());
         gridPanel.setOpaque(false); // Ensure gridPanel is transparent
         GridBagConstraints gbc = new GridBagConstraints();
@@ -93,23 +90,23 @@ public class EShopGUI {
         gbc.gridx = 1; gbc.gridy = 1;
         gridPanel.add(workstationButton, gbc);
     
-        // Add the grid panel to the center of buttonPanel
+        //add the grid panel to the center of buttonPanel. make sure to have transparent components, so that they dont cancel the background image
         buttonPanel.add(gridPanel, BorderLayout.CENTER);
     
-        //Create a text area for order summary and add to buttonPanel
+        //create a text area for order summary and add to buttonPanel
         orderSummary = new JTextArea(5, 30);
         orderSummary.setEditable(false);
-        orderSummary.setOpaque(false); // Make JTextArea transparent
-        orderSummary.setForeground(Color.WHITE); // Ensure text is visible
+        orderSummary.setOpaque(false); //make JTextArea transparent
+        orderSummary.setForeground(Color.WHITE); //ensure text is visible
         JScrollPane scrollPane = new JScrollPane(orderSummary);
-        scrollPane.setOpaque(false); // Make JScrollPane transparent
-        scrollPane.getViewport().setOpaque(false); // Ensure the viewport is transparent
+        scrollPane.setOpaque(false); //make JScrollPane transparent
+        scrollPane.getViewport().setOpaque(false); //ensure the viewport is transparent
         buttonPanel.add(scrollPane, BorderLayout.SOUTH);
         
-        // Add buttonPanel to frame
+        //add buttonPanel to frame
         frame.add(buttonPanel, BorderLayout.CENTER);
     
-        //Action listeners for buttons
+        //action listeners for buttons
         //depending on the button clicked, a product specific method is called, which then calls the general show form method
         pcTowerButton.addActionListener(e -> showPCTowerForm());
         pcScreenButton.addActionListener(e -> showPCScreenForm());
@@ -170,19 +167,23 @@ public class EShopGUI {
     private void showForm(String prompt, String label1, String label2,
                       JTextField memory, JTextField cpu, JTextField screen_size, JTextField pc,
                       JComboBox<String> comboBox) {
+    /*general showform method, called from a specific product showform method. some values are null, some arent. based on this, it decides which jtext fields to display and which not.
+    after the user provides data for the fields, it passes them to the handle submit method. if any field is null, or of non numeric value, it throws an exception. it also provides a button to go back to the previous window*/
+
+
     clearPanel();
     
-    // Create BackgroundPanel with the same background image as the main panel
+    //create BackgroundPanel with the same background image as the main panel
     BackgroundPanel formBackgroundPanel = new BackgroundPanel(background, new BorderLayout());
     
-    // Use GridBagLayout for the form content
+    //ue GridBagLayout for the form content
     formPanel = new JPanel(new GridBagLayout());
     formPanel.setOpaque(false); // Ensure the formPanel is transparent
     GridBagConstraints gbc = new GridBagConstraints();
     gbc.insets = new Insets(5, 5, 5, 5);
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
-    // Add header panel with exit button
+    //add header panel with exit button
     JPanel headerPanel = new JPanel(new BorderLayout());
     headerPanel.setOpaque(false); // Ensure headerPanel is transparent
     JLabel headerLabel = new JLabel(prompt);
@@ -201,11 +202,12 @@ public class EShopGUI {
     gbc.gridwidth = 1;
 
     int gridY = 1;
-
+    
+    //check which fields are null and which arent, in order to decide what product the user has chosen
     if (label1 != null && memory != null) {
         JLabel label1Component = new JLabel(label1);
         label1Component.setFont(new Font("Arial", Font.BOLD, 14));
-        label1Component.setForeground(Color.WHITE); // Ensure text is visible on background
+        label1Component.setForeground(Color.WHITE); //ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(label1Component, gbc);
@@ -218,7 +220,7 @@ public class EShopGUI {
     if (label2 != null && cpu != null) {
         JLabel label2Component = new JLabel(label2);
         label2Component.setFont(new Font("Arial", Font.BOLD, 14));
-        label2Component.setForeground(Color.WHITE); // Ensure text is visible on background
+        label2Component.setForeground(Color.WHITE); //ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(label2Component, gbc);
@@ -231,7 +233,7 @@ public class EShopGUI {
     if (screen_size != null) {
         JLabel screenSizeLabel = new JLabel("Screen Size (inches):");
         screenSizeLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        screenSizeLabel.setForeground(Color.WHITE); // Ensure text is visible on background
+        screenSizeLabel.setForeground(Color.WHITE); //ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(screenSizeLabel, gbc);
@@ -244,7 +246,7 @@ public class EShopGUI {
     if (pc != null) {
         JLabel hddLabel = new JLabel("HDD Size (GB):");
         hddLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        hddLabel.setForeground(Color.WHITE); // Ensure text is visible on background
+        hddLabel.setForeground(Color.WHITE); //ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(hddLabel, gbc);
@@ -257,7 +259,7 @@ public class EShopGUI {
     if (comboBox != null) {
         JLabel osLabel = new JLabel("Operating System:");
         osLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        osLabel.setForeground(Color.WHITE); // Ensure text is visible on background
+        osLabel.setForeground(Color.WHITE); //ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(osLabel, gbc);
@@ -267,22 +269,22 @@ public class EShopGUI {
         gridY++;
     }
 
-    // Place "Go Back" button on the left
+    //place "Go Back" button on the left
     goBackButton = new JButton("Go Back");
     gbc.gridx = 0;
     gbc.gridy = gridY;
     formPanel.add(goBackButton, gbc);
 
-    // Place "Submit" button on the right
+    //place "Submit" button on the right
     JButton submitButton = new JButton("Submit");
     gbc.gridx = 1;
     gbc.gridy = gridY;
     formPanel.add(submitButton, gbc);
 
-    // Add the formPanel to the BackgroundPanel
+    //add the formPanel to the BackgroundPanel
     formBackgroundPanel.add(formPanel, BorderLayout.CENTER);
 
-    // Add BackgroundPanel to frame
+    //add BackgroundPanel to frame
     frame.add(formBackgroundPanel, BorderLayout.CENTER);
 
 
@@ -299,15 +301,9 @@ public class EShopGUI {
 
 
 
-
-
-
-
-
-        
-
-
     private void handleSubmit(JTextField field1, JTextField field2, JTextField field3, JTextField field4, JComboBox<String> comboBox) {
+        //this method handles the submit from the showform method, concatenated a result string based on the objects and the attributes selected, and pases it on to the next method, called confirmation window, which displays them
+
         try {
             double memorySize = field1 != null ? Double.parseDouble(field1.getText()) : 0;
             double cpuFreq = field2 != null ? Double.parseDouble(field2.getText()) : 0;
@@ -318,27 +314,22 @@ public class EShopGUI {
             String result;
             String objectName;
     
-            Product product = null;
-
             switch (previousSelection) {
                 case "PC Tower":
                     Pc_Tower pcTower = new Pc_Tower(memorySize, cpuFreq);
                     result = pcTower.toString();
                     objectName = "PC Tower";
-                    product = pcTower;
                     break;
                 case "PC Screen":
                     Pc_Screen pcScreen = new Pc_Screen(screenSize);
                     result = pcScreen.toString();
                     objectName = "PC Screen";
-                    product = pcScreen;
                     break;
                 case "Personal Computer":
                     Pc_Tower pcTowerPersonal = new Pc_Tower(memorySize, cpuFreq);
                     Pc_Screen pcScreenPersonal = new Pc_Screen(screenSize);
                     Personal_Computer pc = new Personal_Computer(pcTowerPersonal, pcScreenPersonal, hddSize);
                     result = pc.toString();
-                    product = pc;
                     objectName = "Personal Computer";
                     break;
                 case "Workstation":
@@ -348,13 +339,12 @@ public class EShopGUI {
                     Workstation workstation = new Workstation(pcWorkstation, os);
                     result = workstation.toString();
                     objectName = "Workstation";
-                    product = workstation;
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + previousSelection);
             }
-    
-            showConfirmationDialog(objectName, result, product);
+
+            showConfirmationDialog(objectName, result);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(frame, "Please enter valid numeric values.", "Input Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -362,6 +352,7 @@ public class EShopGUI {
         
 
     private void showProductSelection() {
+        //clears screen and reverts back to the product selection screen
         clearPanel();
         frame.add(buttonPanel, BorderLayout.CENTER);
         frame.revalidate();
@@ -369,12 +360,13 @@ public class EShopGUI {
     }
 
     private void clearPanel() {
+        //clears the screen
         frame.getContentPane().removeAll();
-        orderSummary.setText(""); // Clear the text area
+        orderSummary.setText(""); //clear the text area
         frame.repaint();
     }
         
-private void showConfirmationDialog(String objectName, String details, Product product) {
+private void showConfirmationDialog(String objectName, String details) {
     //this method creates our final, confirmation window displaying the objects (and their objects) and their attributes respectively. it has the background of the selected product, as opposed to the initial screen's background    
 
     JFrame confirmationFrame = new JFrame("Order Confirmation");
@@ -400,7 +392,7 @@ private void showConfirmationDialog(String objectName, String details, Product p
 
     JLabel messageLabel = new JLabel("Congratulations! You have made the order", JLabel.CENTER);
     messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
-    // Set the label to be non-opaque so it doesn't block the background
+    //set the label to be non-opaque so it doesn't block the background
     messageLabel.setOpaque(false);
     messageLabel.setForeground(Color.WHITE);  // Set text color to white
 
@@ -408,12 +400,12 @@ private void showConfirmationDialog(String objectName, String details, Product p
 
     JTextArea detailsArea = new JTextArea(10, 30);
     detailsArea.setEditable(false);
-    // Make the text area transparent
+    //make the text area transparent
     detailsArea.setOpaque(false);
     detailsArea.setBackground(new Color(0, 0, 0, 0)); // Transparent background
     detailsArea.setForeground(Color.WHITE); // Change text color for better visibility
 
-    // Build the detailed confirmation message
+    //build the detailed confirmation message
     StringBuilder result = new StringBuilder();
     result.append("Order: ").append(objectName).append("\n\n");
     result.append(details);
@@ -426,9 +418,9 @@ private void showConfirmationDialog(String objectName, String details, Product p
 
     JButton okButton = new JButton("OK");
     okButton.addActionListener(e -> confirmationFrame.dispose());
-    okButton.setOpaque(false); // Make the button transparent
-    okButton.setContentAreaFilled(false); // Ensure the button doesn't have a filled background
-    okButton.setForeground(Color.WHITE); // Set text color to white
+    okButton.setOpaque(false); //make the button transparent
+    okButton.setContentAreaFilled(false); //ensure the button doesn't have a filled background
+    okButton.setForeground(Color.WHITE); //set text color to white
 
     panel.add(okButton, BorderLayout.SOUTH);
 
@@ -444,19 +436,12 @@ private void showConfirmationDialog(String objectName, String details, Product p
 
 
     
-    
-
 
     private ImageIcon resizeIcon(ImageIcon icon, Dimension size) {
+        //resized an ImageIcon object so that it fits properly in our grid
         Image image = icon.getImage();
         Image resizedImage = image.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);
     }
-
-
-
-
-
-
 
 }

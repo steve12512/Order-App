@@ -1,6 +1,6 @@
 package com.ecommerce.app;
 public class Workstation extends Personal_Computer {
-    // Class representing a Workstation
+    //class representing a Workstation
 
     private String os;
 
