@@ -441,7 +441,7 @@ private void showConfirmationDialog(String objectName, String details) {
     //create a JPanel object containing the image as its background
     BackgroundPanel panel = new BackgroundPanel(image, new BorderLayout());
 
-    JLabel messageLabel = new JLabel("Congratulations! You have made the order", JLabel.CENTER);
+    JLabel messageLabel = new JLabel("Congratulations! You have made an order", JLabel.CENTER);
     messageLabel.setFont(new Font("Arial", Font.BOLD, 16));
     //set the label to be non-opaque so it doesn't block the background
     messageLabel.setOpaque(false);
