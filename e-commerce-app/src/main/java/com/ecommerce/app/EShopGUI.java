@@ -157,7 +157,7 @@ public class EShopGUI {
                 "Memory Size (GB):", "CPU Frequency (GHz):",
                 new JTextField(10), new JTextField(10),
                 new JTextField(10), new JTextField(10),
-                new JComboBox<>(new String[]{"Windows", "Linux"}));
+                new JComboBox<>(new String[]{"Windows", "MacOs", "Linux"}));
     }
 
 
