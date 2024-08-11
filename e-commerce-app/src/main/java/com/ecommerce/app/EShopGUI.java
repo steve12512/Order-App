@@ -489,7 +489,7 @@ private void showConfirmationDialog(String objectName, String details) {
     
 
     private ImageIcon resizeIcon(ImageIcon icon, Dimension size) {
-        //resized an ImageIcon object so that it fits properly in our grid
+        //resizes an ImageIcon object so that it fits properly in our grid
         Image image = icon.getImage();
         Image resizedImage = image.getScaledInstance(size.width, size.height, Image.SCALE_SMOOTH);
         return new ImageIcon(resizedImage);

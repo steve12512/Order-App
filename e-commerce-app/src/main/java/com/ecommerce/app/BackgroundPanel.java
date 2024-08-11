@@ -18,7 +18,7 @@ public class BackgroundPanel extends JPanel {
         
         super(layout);
         this.backgroundImage = imageIcon.getImage();
-        // Set preferred size if necessary, to make sure it fits the image or desired dimensions
+        //set preferred size if necessary, to make sure it fits the image or desired dimensions
         setPreferredSize(new Dimension(backgroundImage.getWidth(this), backgroundImage.getHeight(this)));
     }
 
