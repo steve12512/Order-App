@@ -163,27 +163,19 @@ public class EShopGUI {
 
 
 
-    
-    private void showForm(String prompt, String label1, String label2,
+private void showForm(String prompt, String label1, String label2,
                       JTextField memory, JTextField cpu, JTextField screen_size, JTextField pc,
                       JComboBox<String> comboBox) {
-    /*general showform method, called from a specific product showform method. some values are null, some arent. based on this, it decides which jtext fields to display and which not.
-    after the user provides data for the fields, it passes them to the handle submit method. if any field is null, or of non numeric value, it throws an exception. it also provides a button to go back to the previous window*/
-
-
     clearPanel();
-    
-    //create BackgroundPanel with the same background image as the main panel
+
     BackgroundPanel formBackgroundPanel = new BackgroundPanel(background, new BorderLayout());
-    
-    //ue GridBagLayout for the form content
+
     formPanel = new JPanel(new GridBagLayout());
     formPanel.setOpaque(false); // Ensure the formPanel is transparent
     GridBagConstraints gbc = new GridBagConstraints();
     gbc.insets = new Insets(5, 5, 5, 5);
     gbc.fill = GridBagConstraints.HORIZONTAL;
 
-    //add header panel with exit button
     JPanel headerPanel = new JPanel(new BorderLayout());
     headerPanel.setOpaque(false); // Ensure headerPanel is transparent
     JLabel headerLabel = new JLabel(prompt);
@@ -202,12 +194,11 @@ public class EShopGUI {
     gbc.gridwidth = 1;
 
     int gridY = 1;
-    
-    //check which fields are null and which arent, in order to decide what product the user has chosen
+
     if (label1 != null && memory != null) {
         JLabel label1Component = new JLabel(label1);
         label1Component.setFont(new Font("Arial", Font.BOLD, 14));
-        label1Component.setForeground(Color.WHITE); //ensure text is visible on background
+        label1Component.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(label1Component, gbc);
@@ -220,7 +211,7 @@ public class EShopGUI {
     if (label2 != null && cpu != null) {
         JLabel label2Component = new JLabel(label2);
         label2Component.setFont(new Font("Arial", Font.BOLD, 14));
-        label2Component.setForeground(Color.WHITE); //ensure text is visible on background
+        label2Component.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(label2Component, gbc);
@@ -233,7 +224,7 @@ public class EShopGUI {
     if (screen_size != null) {
         JLabel screenSizeLabel = new JLabel("Screen Size (inches):");
         screenSizeLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        screenSizeLabel.setForeground(Color.WHITE); //ensure text is visible on background
+        screenSizeLabel.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(screenSizeLabel, gbc);
@@ -246,7 +237,7 @@ public class EShopGUI {
     if (pc != null) {
         JLabel hddLabel = new JLabel("HDD Size (GB):");
         hddLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        hddLabel.setForeground(Color.WHITE); //ensure text is visible on background
+        hddLabel.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(hddLabel, gbc);
@@ -254,12 +245,34 @@ public class EShopGUI {
         gbc.gridy = gridY;
         formPanel.add(pc, gbc);
         gridY++;
+
+        // Add label indicating a personal computer contains a PC Tower and a PC Screen
+        //if this just a personal computer and not a workstation
+
+
+        JLabel pcInfoLabel;
+
+        if (comboBox == null) {
+             pcInfoLabel = new JLabel("Great! You have selected a Personal Computer, which contains a PC Tower and a PC Screen along with it.");
+        } else {
+             pcInfoLabel = new JLabel("A Personal Computer also contains a PC Tower and a PC Screen along with it.");
+        }
+        pcInfoLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        pcInfoLabel.setForeground(Color.BLACK); // Different color to highlight
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        formPanel.add(pcInfoLabel, gbc);
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        gridY++;
     }
 
     if (comboBox != null) {
         JLabel osLabel = new JLabel("Operating System:");
         osLabel.setFont(new Font("Arial", Font.BOLD, 14));
-        osLabel.setForeground(Color.WHITE); //ensure text is visible on background
+        osLabel.setForeground(Color.WHITE); // Ensure text is visible on background
         gbc.gridx = 0;
         gbc.gridy = gridY;
         formPanel.add(osLabel, gbc);
@@ -267,26 +280,63 @@ public class EShopGUI {
         gbc.gridy = gridY;
         formPanel.add(comboBox, gbc);
         gridY++;
+
+        // Add label indicating a workstation contains a personal computer
+        JLabel workstationInfoLabel = new JLabel("Great! You have selected a Workstation, which also contains a Personal Computer along with it.");
+        workstationInfoLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        workstationInfoLabel.setForeground(Color.BLACK); // Different color to highlight
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        formPanel.add(workstationInfoLabel, gbc);
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        gridY++;
     }
 
-    //place "Go Back" button on the left
+    // Add a label if only PC is selected
+    if (pc == null && comboBox == null && screen_size == null) {
+        JLabel pcTowerLabel = new JLabel("Great! You have selected a PC Tower!");
+        pcTowerLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        pcTowerLabel.setForeground(Color.BLACK); // Highlight color
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        formPanel.add(pcTowerLabel, gbc);
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        gridY++;
+    }
+
+    // Add a label if only PC Screen is selected
+    if (pc == null && comboBox == null && memory == null && cpu == null && screen_size != null) {
+        JLabel pcScreenLabel = new JLabel("Great! You have selected a PC Screen!");
+        pcScreenLabel.setFont(new Font("Arial", Font.ITALIC, 12));
+        pcScreenLabel.setForeground(Color.BLACK); // Highlight color
+        gbc.gridx = 0;
+        gbc.gridy = gridY;
+        gbc.gridwidth = 2;
+        gbc.anchor = GridBagConstraints.CENTER;
+        formPanel.add(pcScreenLabel, gbc);
+        gbc.gridwidth = 1;
+        gbc.anchor = GridBagConstraints.WEST;
+        gridY++;
+    }
+
     goBackButton = new JButton("Go Back");
     gbc.gridx = 0;
     gbc.gridy = gridY;
     formPanel.add(goBackButton, gbc);
 
-    //place "Submit" button on the right
     JButton submitButton = new JButton("Submit");
     gbc.gridx = 1;
     gbc.gridy = gridY;
     formPanel.add(submitButton, gbc);
 
-    //add the formPanel to the BackgroundPanel
     formBackgroundPanel.add(formPanel, BorderLayout.CENTER);
-
-    //add BackgroundPanel to frame
     frame.add(formBackgroundPanel, BorderLayout.CENTER);
-
 
     submitButton.addActionListener(e -> handleSubmit(memory, cpu, screen_size, pc, comboBox));
     goBackButton.addActionListener(e -> showProductSelection());
