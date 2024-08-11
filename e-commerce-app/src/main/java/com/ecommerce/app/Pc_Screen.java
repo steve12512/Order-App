@@ -20,6 +20,6 @@ public class Pc_Screen extends  Product{
 
     @Override
     public String toString() {
-        return "Size: " + inches + " inches";
+        return "Pc Screen; Size: " + inches + " inches";
     }
 }

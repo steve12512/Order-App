@@ -40,6 +40,6 @@ public class Personal_Computer extends  Product {
 
     @Override
     public String toString() {
-        return " Pc_Tower: " + pc_tower + "\nScreen: " + pc_screen + ",\nHDD: " + hdd + " GB";
+        return "Personal Computer; \n" + pc_tower + "\n" + pc_screen + ",\nHDD: " + hdd + " GB";
     }
 }

@@ -31,6 +31,6 @@ public class Pc_Tower extends  Product{
 
     @Override
     public String toString() {
-        return "Memory Size: " + memory_size + " GB, CPU Frequency: " + cpu_freq + " GHz";
+        return "Pc Tower; Memory Size: " + memory_size + " GB, CPU Frequency: " + cpu_freq + " GHz";
     }
 }
